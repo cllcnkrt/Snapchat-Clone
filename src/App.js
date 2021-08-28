@@ -3,7 +3,7 @@ import './App.css';
 
 function App() {
   return (
-    <div className="App">
+    <div className="app">
       <h1>snapchat</h1>
     </div>
   );

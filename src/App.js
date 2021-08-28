@@ -1,35 +1,23 @@
-import React from 'react';
-import './App.css';
-import WebcamCapture from './components/WebcamCapture/WebcamCapture';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
-} from "react-router-dom";
+import React from "react";
+import "./App.css";
+import WebcamCapture from "./components/WebcamCapture/WebcamCapture";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import Preview from "./components/Preview/Preview";
 
 function App() {
   return (
     <div className="app">
-   <Router>
+      <Router>
         <Switch>
-
-          <Route exact path="/test">
-          <h1>Heyyy</h1>
+          <Route path="/preview">
+            <Preview />
           </Route>
-
+            
           <Route exact path="/">
-          <WebcamCapture />
+            <WebcamCapture />
           </Route>
-
         </Switch>
-    
-    </Router>
-  );
-
-
-
-    
+      </Router>
     </div>
   );
 }

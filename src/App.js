@@ -13,6 +13,7 @@ function App() {
           <Route exact path="/" component={WebcamCapture} />
           <Route path="/preview" component={Preview} />
           <Route path="/chats" component={Chats} />
+          <Route path="/chats/view" component={ChatView} />
         </Switch>
       </Router>
     </div>

@@ -15,7 +15,7 @@ import CropIcon from "@material-ui/icons/Crop";
 import TimerIcon from "@material-ui/icons/Timer";
 import SendIcon from "@material-ui/icons/Send";
 import "./Preview.css";
-import { v4 as uudi } from "uuid";
+import { v4 as uuid } from "uuid";
 import { storage,db  } from "../../firebase";
 import firebase from "firebase"
 import { selectUser } from "../../features/appSlice";
@@ -37,7 +37,7 @@ function Preview() {
   };
 
   const sendPost = () => {
-    const id = uudi();
+    const id = uuid();
     const uploadTask = storage
       .ref(`posts/${id}`)
       .putString(cameraImage, "data_url");
@@ -54,7 +54,7 @@ function Preview() {
           .then((url) => {
             db.collection("posts").add({
               imageUrl: url,
-              username: "name",
+              username: user.username,
               read: false,
               profilePic: user.profilePic,
               timestamp: firebase.firestore.FieldValue.serverTimestamp(),

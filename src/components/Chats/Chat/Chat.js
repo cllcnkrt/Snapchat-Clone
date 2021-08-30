@@ -7,7 +7,6 @@ import { selectImage } from "../../../features/appSlice";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import {db} from "../../../firebase"
-
 function Chat({ id, profilePic, username, timestamp, imageUrl, read }) {
   const dispatch = useDispatch();
   const history = useHistory();

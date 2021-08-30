@@ -1,17 +1,17 @@
-import React from "react";
+import React,{ useEffect ,useState} from "react";
 import "./Chats.css";
 import Avatar from "@material-ui/core/Avatar";
 import SearchIcon from "@material-ui/icons/Search";
 import ChatBubbleIcon from "@material-ui/icons/ChatBubble";
-import { useState } from "react";
-import { useEffect } from "react";
-import { useHistory } from "react";
 import { auth, db } from "../../firebase";
 import Chat from "./Chat/Chat";
+import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { selectUser } from "../../features/appSlice";
 import RadioButtonUncheckedRoundedIcon from '@material-ui/icons/RadioButtonUncheckedRounded';
 import { resetCameraImage } from "../../features/cameraSlice";
+
+
 
 function Chats() {
   const [posts, setPosts] = useState([]);
@@ -20,9 +20,7 @@ function Chats() {
   const history = useHistory();
 
   useEffect(() => {
-    db.collection("posts")
-      .orderBy("timestamp", "desc")
-      .onSnapshot((snapshot) =>
+    db.collection("posts").orderBy("timestamp", "desc").onSnapshot((snapshot) =>
         setPosts(
           snapshot.docs.map((doc) => ({
             id: doc.id,

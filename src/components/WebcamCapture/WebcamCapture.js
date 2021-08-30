@@ -10,15 +10,17 @@ const videoConstraints = {
   height: 400,
   facingMode: "user",
 };
-
 function WebcamCapture() {
   const webcamRef = useRef(null);
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const history = useHistory();
+
   const capture = useCallback(() => {
+      
     const imageSrc = webcamRef.current.getScreenshot();
-    dispatch(setCameraImage(imageSrc))
-    history.push("/preview")
+    dispatch(setCameraImage(imageSrc));
+    history.push("/preview");
+
   }, [webcamRef]);
 
   return (

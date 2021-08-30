@@ -7,6 +7,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { db } from "../../firebase";
 import Chat from "./Chat/Chat";
+
 function Chats() {
   const [posts, setPosts] = useState([]);
 
@@ -27,25 +28,26 @@ function Chats() {
     <div className="chats">
       <div className="chats__header">
         <Avatar className="chats__avatar" />
+
         <div className="chats__search">
           <SearchIcon />
           <input placeholder="Friends" type="text" />
         </div>
-        <ChatBubbleIcon />
+        <ChatBubbleIcon className="chats__chatIcon" />
       </div>
 
       <div className="chats__posts">
-        {posts.map(({id, data: {profilePic,username, timestamp,imageUrl,read}})=>(
-            <Chat 
-            key={id}
-            id={id}
-            username={username}
-            profilePic={profilePic}
-            timestamp={timestamp}
-            imageUrl={imageUrl}
-            read={read}
-            />
-        ))}
+          {posts.map(({id ,data:{profilePic, username, timestamp, imageUrl, read}}) => (
+                <Chat 
+                    key={id}
+                    id={id}
+                    username={username}
+                    timestamp={timestamp}
+                    imageUrl={imageUrl}
+                    read={read}
+                    profilePic={profilePic}
+                />
+          ))}
       </div>
     </div>
   );

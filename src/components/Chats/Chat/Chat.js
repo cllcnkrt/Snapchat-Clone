@@ -11,6 +11,7 @@ import {db} from "../../../firebase"
 function Chat({ id, profilePic, username, timestamp, imageUrl, read }) {
   const dispatch = useDispatch();
   const history = useHistory();
+
   const open = () => {
     if (!read) {
       dispatch(selectImage(imageUrl));
@@ -20,20 +21,22 @@ function Chat({ id, profilePic, username, timestamp, imageUrl, read }) {
         },
         { merge: true }
       );
-      history.push('/chats/view')
+
+      history.push("/chats/view")
     }
   };
 
   return (
     <div onClick={open} className="chat">
-      <Avatar src={profilePic} />
+      <Avatar className="chat__avatar" src={profilePic} />
       <div className="chat__info">
         <h4>{username}</h4>
         <p>
-          Tap to view -{" "}
+          Top the view -{" "}
           <ReactTimeago date={new Date(timestamp?.toDate()).toUTCString()} />
         </p>
       </div>
+
       {!read && <StopRoundedIcon className="chat__readIcon" />}
     </div>
   );

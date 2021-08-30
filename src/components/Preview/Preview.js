@@ -18,21 +18,22 @@ import "./Preview.css";
 import { v4 as uudi } from "uuid";
 import { storage,db  } from "../../firebase";
 import firebase from "firebase"
-
+import { selectUser } from "../../features/appSlice";
 
 function Preview() {
   const cameraImage = useSelector(selectCameraImage);
   const history = useHistory();
   const dispatch = useDispatch();
+  const user = useSelector(selectUser);
+
   useEffect(() => {
     if (!cameraImage) {
       history.replace("/");
     }
-  }, []);
+  }, [cameraImage, history]);
 
   const closePreview = () => {
-    dispatch(resetCameraImage);
-    history.replace("/");
+    dispatch(resetCameraImage());
   };
 
   const sendPost = () => {
@@ -44,12 +45,8 @@ function Preview() {
     uploadTask.on(
       "state_changed",
       null,
-      (error) => {
-        //ERROR function
-        console.log(error);
-      },
+      (error) => {},
       () => {
-        //COMPLETE function
         storage
           .ref("posts")
           .child(id)
@@ -57,22 +54,21 @@ function Preview() {
           .then((url) => {
             db.collection("posts").add({
               imageUrl: url,
-              username: "username",
+              username: "name",
               read: false,
-              //profilepic,
+              profilePic: user.profilePic,
               timestamp: firebase.firestore.FieldValue.serverTimestamp(),
             });
-            history.replace("/chats")
-            console.log("se")
+            history.replace("/chats");
           });
       }
-     
     );
   };
 
   return (
     <div className="preview">
       <CloseIcon onClick={closePreview} className="preview__close" />
+
       <div className="preview__toolbarRight">
         <TextFieldsIcon />
         <CreateIcon />
@@ -82,7 +78,9 @@ function Preview() {
         <CropIcon />
         <TimerIcon />
       </div>
+
       <img src={cameraImage} alt="" />
+
       <div onClick={sendPost} className="preview__footer">
         <h2>Send Now</h2>
         <SendIcon fontSize="small" className="preview__sendIcon" />
